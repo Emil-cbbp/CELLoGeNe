@@ -1,0 +1,112 @@
+""" Welcome to a .lgn-files. Here, all the information about a gene regulatory
+network and what should be done with it is put in. This file will specify how 
+to structure .lgn-files. Comments (on pythonn.3-format) and blank lines are 
+disregarded. Generally, key-words will be everything written on a line before 
+colon (:), and everything after will be the input information where trailing 
+and leading whitespaces are stripped away. It is important that all the 
+arguments are in the right order (i.e. do not move anything around!) 
+
+Normal python commenting can be used with # for single line comments 
+and trippel " for blocks.
+""" 
+
+
+
+"""The first non-empty or comment line must specify how many genes that are 
+included in the network."""
+
+NumberOfGenes: 5
+
+
+""" Next must come a list where it is denoted how the genes affect each other. 
+On each line it is denoted how the other gene affects the current gene. First 
+on the line, the name of the gene is written, followed be the connections after 
+a colon in a square bracket. The different connections are:
+
++ activation
+- repression
+. no effect
+_ unknown
+
+For over expressing (OE) or knocking down (KD) a gene, put a X or K in front of 
+the square bracket (which can be left out).
+"""
+
+A: [-B, +D]
+B: [+A, +D, -E]
+C: [+B, -D, +E]
+D: [-B, +C, +E]
+E: [+C]
+
+
+
+""" Then, we need to know which operators that will be tried out. 
+The options are:
+AND, OBAND, UBAND, OBOR, UBOR, MIN, MAX.
+Enter them as a string list.
+"""
+	
+operators: [UBAND, UBOR]	# Here we only use two operators.
+
+
+
+""" It is possible to fix the operators that combine inputs to specific genes. 
+The format is a dictionary where each key is a gene name and the value is a 
+code for the input. One example is:
+
+{A: D UBAND ~B, B: (~E UBAND D) UBAND A}
+
+It is not needed to specify all genes. Those that are not specified will be
+looped through the operator list. It is not allowed to break the list into 
+multiple lines.
+"""
+
+specInput = {}
+#specInput = {E: C, A: D UBOR ~B, B: (A UBAND ~E) UBOR D, C: (E UBOR ~D) UBOR B, D: (~B UBAND E) UBOR C}
+
+
+""" It might be some states that are known to be attractors from experiments.
+Then it is possible to add these states as constraints. 
+The syntax is a list where each element is a sequence of ones and zeroes, i.e.
+the bit representation of a state.
+"""
+
+constraints: [10110, 11101]
+
+
+
+""" Commands """
+
+""" Fixed flag, only loop through the non-given configurations.
+"""
+#fixFlag = True
+fixFlag = False
+
+
+""" Filename used to save the result. """
+filename: Toy_demo_exhaustive_search_UBOR_UBAND.tsv
+
+""" Path where result file is saved. """
+# Enter a PATH.
+PATH: ''
+
+
+"""
+If the configurations should be tried exhaustively or by Monte Carlo. After the
+keyword 'runType', enter E for Exhaustive or M for Monte Carlo. If M is entered,
+it is also possible to add additional arguments after another with correct 
+keywords after a:. frac is the fraction of the total number of configurations, 
+which that will be used as the number of configurations to try. tot is if one 
+instead choose to enter the total number of configurations to try. Instead of 
+entering an integer, it is also possible to enter 'tot' (without quotation marks)
+to use the same number of tries as the total number of configurations. Both frac 
+and tot should not be used at once.
+
+runType: E/M: frac = 1.0: tot = 12
+"""
+
+runType: E
+#runType: M: tot = 1000
+
+
+
