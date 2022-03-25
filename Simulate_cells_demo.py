@@ -236,4 +236,4 @@ for k,s in enumerate(s_init):
 ax[0].set_ylabel('Probability of reaching attractor')
 plt.tight_layout()
 
-
+plt.show()
