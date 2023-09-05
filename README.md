@@ -4,7 +4,7 @@ The CELLoGeNe (Computation of Energy Landscapes of Logical Gene Networks) softwa
 \*Computational Biology and Biological Physics group, Department of Astronomy and Theoretical Physics, Lund University.
 ** Theoretical Particle Physics group, Department of Astronomy and Theoretical Physics, Lund University.
 
-bioRxiv: https://doi.org/10.1101/2022.02.09.479734
+DOI: https://doi.org/10.1016/j.isci.2022.104743
 
 CELLoGeNe consists of three parts:
   * Calculating energy landscapes from a given gene regulatory network (GRN). CELLoGeNe can either calculate the energy landscape for a single specified configuration of logical operators, or test different configurations either exhaustively or a set of random configurations. (Simulation.py, Network.py, RunData.py, Operators.py, MatrixGenerator.py, lgnReader.py, GeneTree.py, ExpressionSpace.py)
